@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ShoppingListService {
-
   private shoppingList: Item[] = [
     {
       id: 1,
@@ -33,5 +32,21 @@ export class ShoppingListService {
 
   getShoppingList() {
     return this.shoppingList;
+  }
+
+  createItem(itemName: string): Item {
+    const id = this.shoppingList.length + 1;
+    const item: Item = {
+      id: id,
+      name: itemName,
+      date: new Date().toLocaleString('en-EN'),
+      bought: false,
+    };
+    return item;
+  }
+
+  addItem(itemName: string){
+    const item = this.createItem(itemName);
+    this.shoppingList.push(item);
   }
 }

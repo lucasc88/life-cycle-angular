@@ -15,7 +15,11 @@ export class ItemComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  //onChanges run firt than onInit
+  //onChanges run firt than onInit.
+  //What differs OnInit from OnChanges is that OnInit is
+  //called only once during the lifetime of the component/directive,
+  //whereas OnChanges is called whenever there is a change
+  //in data entry properties.
   ngOnChanges(changes: SimpleChanges): void {
     console.log("ngOnChanges");;
   }
