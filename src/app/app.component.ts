@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, DoCheck {
   //DoCheck() detects all component changes. OnChange detects only changes inside the @Input().
   //Pay attention: DoCheck() can be called a lot of times because it detects everything.
   ngDoCheck(): void {
-    console.log("ngDoCheck was called");
+    console.log('ngDoCheck was called');
     this.shoppingListService.updateLocalStorage();
   }
 
@@ -28,12 +28,16 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   //this item variable is being emitting from the child component (<app-item>)
-  editItem(item: Item){
-    console.log("item emitted: " + JSON.stringify(item));
+  editItem(item: Item) {
+    console.log('item emitted: ' + JSON.stringify(item));
 
     //now the parente component (app.comnponent) has a variable with the object
     //to be sent to other child component (InputComponent)
     this.itemToBeEdited = item;
+  }
 
+  deleteItem(id: number) {
+    const index = this.shoppingList.findIndex(item => item.id == id);
+    this.shoppingList.splice(index, 1);
   }
 }

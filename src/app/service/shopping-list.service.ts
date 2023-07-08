@@ -31,7 +31,6 @@ export class ShoppingListService {
   addItem(itemName: string) {
     const item = this.createItem(itemName);
     this.shoppingList.push(item);
-    // this.updateLocalStorage();
   }
 
   editItemInTheList(oldItem: Item, editedItemName: string) {
@@ -46,7 +45,6 @@ export class ShoppingListService {
 
     //find the item in the list and replace it
     this.shoppingList.splice(Number(id) - 1, 1, editedItem);
-    // this.updateLocalStorage();
   }
 
   updateLocalStorage() {
