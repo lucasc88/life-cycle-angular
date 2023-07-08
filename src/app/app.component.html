@@ -4,14 +4,16 @@
     <div class="lista">
 
       <h4 class="title-list">Shopping List</h4>
-      <div *ngFor="let item of shoppingList">
-
-        <app-item
-          [item]="item"
-          (emittingItemToEdit)="editItem($event)">
-        </app-item>
-
+      <div *ngIf="shoppingList.length !== 0; else noItems">
+        <div *ngFor="let item of shoppingList">
+          <app-item [item]="item" (emittingItemToEdit)="editItem($event)">
+          </app-item>
+        </div>
       </div>
+
+      <ng-template #noItems>
+        <small>No Items in the List.</small>
+      </ng-template>
     </div>
   </div>
 </section>

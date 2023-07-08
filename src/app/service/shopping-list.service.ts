@@ -6,29 +6,11 @@ import { Injectable } from '@angular/core';
 })
 export class ShoppingListService {
 
-  private shoppingList: Item[] = [
-    {
-      id: 1,
-      name: 'Queijo prato',
-      date: 'Segunda-feira (31/10/2022) às 08:30',
-      bought: false,
-    },
-    {
-      id: 2,
-      name: 'Leite integral',
-      date: 'Segunda-feira (31/10/2022) às 08:30',
-      bought: false,
-    },
-    {
-      id: 3,
-      name: 'Mamão papaia',
-      date: 'Segunda-feira (31/10/2022) às 08:30',
-      bought: true,
-    },
-  ];
+  private shoppingList: Item[] = [];
 
   constructor() {
     console.log('Instanciando dependências necessárias para o serviço.');
+    this.shoppingList = JSON.parse(localStorage.getItem('items') || '[]');
   }
 
   getShoppingList() {
@@ -49,6 +31,7 @@ export class ShoppingListService {
   addItem(itemName: string) {
     const item = this.createItem(itemName);
     this.shoppingList.push(item);
+    // this.updateLocalStorage();
   }
 
   editItemInTheList(oldItem: Item, editedItemName: string) {
@@ -56,12 +39,18 @@ export class ShoppingListService {
       id: oldItem.id,
       name: editedItemName,
       date: oldItem.date,
-      bought: oldItem.bought
-    }
+      bought: oldItem.bought,
+    };
 
     const id = oldItem.id;
 
     //find the item in the list and replace it
     this.shoppingList.splice(Number(id) - 1, 1, editedItem);
+    // this.updateLocalStorage();
+  }
+
+  updateLocalStorage() {
+    //creates a localStorage array called 'items' and fill with shoppingList
+    localStorage.setItem('items', JSON.stringify(this.shoppingList));
   }
 }

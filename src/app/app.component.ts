@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
 import { ShoppingListService } from './service/shopping-list.service';
 
@@ -7,13 +7,20 @@ import { ShoppingListService } from './service/shopping-list.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
 
   title = 'app-lista-de-compras';
   shoppingList!: Array<Item>;
   itemToBeEdited!: Item;
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  //DoCheck() detects all component changes. OnChange detects only changes inside the @Input().
+  //Pay attention: DoCheck() can be called a lot of times because it detects everything.
+  ngDoCheck(): void {
+    console.log("ngDoCheck was called");
+    this.shoppingListService.updateLocalStorage();
+  }
 
   ngOnInit(): void {
     this.shoppingList = this.shoppingListService.getShoppingList();
