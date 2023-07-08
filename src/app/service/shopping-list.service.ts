@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ShoppingListService {
+
   private shoppingList: Item[] = [
     {
       id: 1,
@@ -45,8 +46,22 @@ export class ShoppingListService {
     return item;
   }
 
-  addItem(itemName: string){
+  addItem(itemName: string) {
     const item = this.createItem(itemName);
     this.shoppingList.push(item);
+  }
+
+  editItemInTheList(oldItem: Item, editedItemName: string) {
+    const editedItem: Item = {
+      id: oldItem.id,
+      name: editedItemName,
+      date: oldItem.date,
+      bought: oldItem.bought
+    }
+
+    const id = oldItem.id;
+
+    //find the item in the list and replace it
+    this.shoppingList.splice(Number(id) - 1, 1, editedItem);
   }
 }

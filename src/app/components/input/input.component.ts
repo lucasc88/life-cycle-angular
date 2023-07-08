@@ -16,6 +16,9 @@ import { ShoppingListService } from './../../service/shopping-list.service';
 export class InputComponent implements OnInit, OnChanges {
 
   @Input() itemToBeEdited!: Item;
+  editing = false;
+  textBtn = 'Save Item';
+
   itemValue!: string;
 
   constructor(private shoppingListService: ShoppingListService) {}
@@ -27,6 +30,8 @@ export class InputComponent implements OnInit, OnChanges {
 
     //if the value is different, itemValue will receive another value
     if (!changes['itemToBeEdited'].firstChange) {
+      this.editing = true;
+      this.textBtn = 'Edit Item';
       this.itemValue = this.itemToBeEdited?.name; //? to avoid read a possible null obj
     }
   }
@@ -39,5 +44,12 @@ export class InputComponent implements OnInit, OnChanges {
 
   clearField() {
     this.itemValue = '';
+  }
+
+  editItem(){
+    this.shoppingListService.editItemInTheList(this.itemToBeEdited, this.itemValue);
+    this.clearField();
+    this.editing = false;
+    this.textBtn = 'Save Item';
   }
 }
