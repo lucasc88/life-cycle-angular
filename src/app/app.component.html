@@ -3,6 +3,13 @@
   <div class="container">
     <div class="lista">
 
+      <div class="header-lista">
+        <h4 class="title-list">Shopping List</h4>
+        <button class="btn-header" (click)="clearList()">
+          <small>Clear List</small>
+        </button>
+      </div>
+
       <h4 class="title-list">Shopping List</h4>
       <div *ngIf="shoppingList.length !== 0; else noItems">
         <div *ngFor="let item of shoppingList">
